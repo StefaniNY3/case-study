@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Readiness Assessment - CPG Case Study</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-teal: #7FAFA9;
+            --secondary-sage: #A8BFB8;
+            --light-sage: #E8EDE8;
+            --dark-bg: #0A0A0A;
+            --text-dark: #1A1A1A;
+            --text-light: #666666;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1a1a 100%);
+            color: var(--white);
+            padding: 120px 40px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--primary-teal) 100%);
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-tag {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary-teal);
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .hero h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 72px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -2px;
+            animation: fadeInUp 0.6s ease-out 0.1s backwards;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            color: var(--secondary-sage);
+            max-width: 700px;
+            margin-bottom: 16px;
+            animation: fadeInUp 0.6s ease-out 0.2s backwards;
+        }
+
+        .hero-meta {
+            font-size: 16px;
+            color: var(--text-light);
+            animation: fadeInUp 0.6s ease-out 0.3s backwards;
+        }
+
+        /* Stats Section */
+        .stats {
+            max-width: 1200px;
+            margin: -40px auto 0;
+            padding: 0 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 36px 32px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(127, 175, 169, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 30px 80px rgba(127, 175, 169, 0.15);
+        }
+
+        .stat-number {
+            font-family: 'Crimson Pro', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary-teal);
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Main Content */
+        .content {
+            max-width: 1200px;
+            margin: 100px auto;
+            padding: 0 40px;
+        }
+
+        .section {
+            margin-bottom: 100px;
+        }
+
+        .section-header {
+            margin-bottom: 48px;
+        }
+
+        .section-tag {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary-teal);
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .section-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .section-description {
+            font-size: 18px;
+            color: var(--text-light);
+            max-width: 700px;
+            line-height: 1.7;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--light-sage);
+            border-radius: 16px;
+            padding: 32px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-teal);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(127, 175, 169, 0.2);
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .card-text {
+            font-size: 15px;
+            color: var(--text-dark);
+            line-height: 1.6;
+            opacity: 0.85;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 48px;
+        }
+
+        .column-header {
+            background: var(--primary-teal);
+            color: var(--text-dark);
+            padding: 24px 32px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
+
+        .column-header h3 {
+            font-size: 24px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .debt-card {
+            background: var(--secondary-sage);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .debt-card:hover {
+            background: var(--primary-teal);
+            transform: translateX(4px);
+        }
+
+        .debt-card h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .debt-card p {
+            font-size: 14px;
+            color: var(--text-dark);
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+
+        /* Process Timeline */
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 60px;
+            top: 80px;
+            width: 2px;
+            height: calc(100% + 60px);
+            background: linear-gradient(180deg, var(--primary-teal) 0%, transparent 100%);
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .phase-number {
+            font-family: 'Crimson Pro', serif;
+            font-size: 72px;
+            font-weight: 700;
+            color: var(--primary-teal);
+            line-height: 1;
+            opacity: 0.3;
+        }
+
+        .phase-content {
+            background: var(--light-sage);
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .phase-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary-teal);
+            margin-bottom: 12px;
+        }
+
+        .phase-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .phase-description {
+            font-size: 15px;
+            color: var(--text-dark);
+            line-height: 1.6;
+            opacity: 0.85;
+        }
+
+        /* Outcome Section */
+        .outcome-box {
+            background: linear-gradient(135deg, var(--primary-teal) 0%, var(--secondary-sage) 100%);
+            border-radius: 24px;
+            padding: 60px;
+            color: var(--text-dark);
+            margin-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .outcome-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .outcome-box h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .outcome-list {
+            list-style: none;
+            position: relative;
+        }
+
+        .outcome-list li {
+            font-size: 18px;
+            padding: 16px 0;
+            padding-left: 32px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .outcome-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            .hero-subtitle {
+                font-size: 20px;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .timeline-item {
+                grid-template-columns: 80px 1fr;
+                gap: 24px;
+            }
+
+            .phase-number {
+                font-size: 48px;
+            }
+
+            .outcome-box {
+                padding: 40px 32px;
+            }
+
+            .content {
+                padding: 0 24px;
+            }
+
+            .hero {
+                padding: 80px 24px 60px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-tag">Case Study</div>
+            <h1>AI Readiness Assessment</h1>
+            <div class="hero-subtitle">Strategic AI transformation for a mid-sized CPG company</div>
+            <div class="hero-meta">Consumer Packaged Goods | $50M Revenue | 12 Stakeholder Interviews</div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Stakeholder Interviews</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5+</div>
+                <div class="stat-label">Operational Gaps Identified</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Implementation Phases</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Overview Section -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-tag">Overview</div>
+                <h2 class="section-title">The Challenge</h2>
+                <p class="section-description">
+                    A mid-sized CPG company faced mounting pressure to adopt AI tools without a clear understanding of how, when, and why these technologies should be implemented. The organization needed a strategic framework to evaluate AI solutions based on actual business value rather than market hype.
+                </p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-title">Discovery Phase</div>
+                    <div class="card-text">Conducted comprehensive interviews with 12 C-level employees and department heads to understand process inefficiencies, technology debt, and operational gaps</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Strategic Approach</div>
+                    <div class="card-text">Developed company-wide AI ethics and compliance protocol, comprehensive training for organizational alignment, and clear roadmap for tool adoption</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Outcome</div>
+                    <div class="card-text">Prepared organization to make informed AI decisions and avoid blind tool adoption under pressure, creating sustainable competitive advantage</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Operational Gaps Section -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-tag">Discovery</div>
+                <h2 class="section-title">Operational Gaps</h2>
+                <p class="section-description">
+                    Through extensive stakeholder interviews, we identified five critical operational gaps preventing the organization from effectively leveraging data and technology.
+                </p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-title">Data Analysis Paralysis</div>
+                    <div class="card-text">Teams unable to effectively extract insights from available data, leading to delayed decision-making</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Manual Process Bottleneck</div>
+                    <div class="card-text">Heavy reliance on manual workflows creating inefficiency and increased error rates</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Cross-Functional Misalignment</div>
+                    <div class="card-text">Only 10% overlap in competitive landscape identification across departments</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Information Silos</div>
+                    <div class="card-text">Critical data trapped in departmental silos, preventing holistic business view</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Document Management</div>
+                    <div class="card-text">Lack of centralized system for version control, retrieval, and collaboration on critical documents</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pain Points Section -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-tag">Analysis</div>
+                <h2 class="section-title">Departmental Pain Points</h2>
+                <p class="section-description">
+                    Pain points were consolidated into two primary categories: technology infrastructure challenges and process methodology issues.
+                </p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <div class="column-header">
+                        <h3>Tech Debt</h3>
+                    </div>
+                    <div class="debt-card">
+                        <h4>Data Infrastructure</h4>
+                        <p>Fragmented systems preventing integrated analysis and insights</p>
+                    </div>
+                    <div class="debt-card">
+                        <h4>Automation Gaps</h4>
+                        <p>Manual processes for budgeting, reporting, and monitoring</p>
+                    </div>
+                    <div class="debt-card">
+                        <h4>Master Data Quality</h4>
+                        <p>Inventory and supply chain data requiring cleanup</p>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="column-header">
+                        <h3>Process Debt</h3>
+                    </div>
+                    <div class="debt-card">
+                        <h4>Strategic Alignment</h4>
+                        <p>Cross-functional misalignment on landscape and priorities</p>
+                    </div>
+                    <div class="debt-card">
+                        <h4>Planning Methodology</h4>
+                        <p>Tension between operational needs and strategic planning</p>
+                    </div>
+                    <div class="debt-card">
+                        <h4>Content Management</h4>
+                        <p>Manual workflows for compliance and brand consistency</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solution Section -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-tag">Solution</div>
+                <h2 class="section-title">Implementation Roadmap</h2>
+                <p class="section-description">
+                    A phased approach to sustainable AI integration, designed to build organizational capability and strategic alignment before technology deployment.
+                </p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="phase-number">1</div>
+                    <div class="phase-content">
+                        <div class="phase-label">Foundation</div>
+                        <div class="phase-title">Goal Alignment + Competitive Landscape Mapping</div>
+                        <div class="phase-description">Established organizational consensus on strategic priorities and competitive positioning, creating baseline understanding of market forces and internal capabilities.</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="phase-number">2</div>
+                    <div class="phase-content">
+                        <div class="phase-label">Structure</div>
+                        <div class="phase-title">Data Centralization Strategy</div>
+                        <div class="phase-description">Designed infrastructure roadmap to break down information silos and create unified data architecture supporting advanced analytics and AI applications.</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="phase-number">3</div>
+                    <div class="phase-content">
+                        <div class="phase-label">Training</div>
+                        <div class="phase-title">Internal FAQ Development</div>
+                        <div class="phase-description">Created comprehensive knowledge base and training program to democratize AI understanding across all organizational levels and departments.</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="phase-number">4</div>
+                    <div class="phase-content">
+                        <div class="phase-label">Execution</div>
+                        <div class="phase-title">Inventory Clean Up + Strategic Projects</div>
+                        <div class="phase-description">Launched pilot initiatives teaching AI fundamentals through hands-on projects, establishing clear evaluation criteria for future tool adoption.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Outcome Section -->
+        <section class="section">
+            <div class="outcome-box">
+                <h3>Key Outcomes</h3>
+                <ul class="outcome-list">
+                    <li>By addressing foundational process and tech debt issues, many organizational challenges were immediately mitigated—removing the perceived and artificial reliance on AI as a catch-all solution</li>
+                    <li>Strategic projects teaching AI fundamentals at individual level, building organizational capability from the ground up</li>
+                    <li>Clear pathway for tool adoption based on actual business needs rather than vendor marketing or competitive pressure</li>
+                    <li>Organization equipped to evaluate AI tools critically versus blindly, ensuring ROI and strategic alignment on all technology investments</li>
+                    <li>Established AI ethics and compliance framework protecting the organization from regulatory and reputational risks</li>
+                    <li>Cross-functional alignment on competitive landscape and strategic priorities, reducing organizational friction and accelerating decision-making</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
